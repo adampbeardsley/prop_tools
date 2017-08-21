@@ -177,8 +177,12 @@ class Timeline():
             self.eax.set_xticks(years)
             self.eax.xaxis.set_minor_locator(AutoMinorLocator())
             self.eax.set_xlim(to_datetime(xi), to_datetime(xf))
-            self.eax.tick_params('x', length=15, width=linewidth, which='both',
+            self.eax.set_ylim(0, 2)
+            self.eax.tick_params('x', length=15, width=linewidth, which='major',
                                  direction='inout')
+            self.eax.tick_params('x', length=7, width=linewidth, which='minor',
+                                 direction='inout')
+            self.eax.set_xticklabels([])
 
         # Loop through categories, plot tasks and events
         nrows = self.sort_tasks()
@@ -208,9 +212,10 @@ class Timeline():
                                   transform=self.tax.transAxes)
             if len(cevents) > 0:
                 for event in cevents:
-                    self.eax.scatter(e.time, 1, c=fc, marker='s', s=200,
+                    self.eax.scatter(event.time, 1, c=fc, marker='s', s=200,
                                      edgecolors='k')
-        # TODO: Figure out how to display events
+                    self.eax.text(event.time, 1.5, event.desc, verticalalignment='bottom',
+                                  horizontalalignment='left', rotation=30)
         plt.show()
 
     def save(self, filename='timeline.pkl'):
