@@ -113,7 +113,7 @@ class Timeline():
         if plot_tasks:
             if plot_events:
                 # Plot both
-                gs = gridspec.GridSpec(2, 1, height_ratios=[6, 1])
+                gs = gridspec.GridSpec(2, 1, height_ratios=[8, 1])
                 self.tax = plt.subplot(gs[0])
                 self.eax = plt.subplot(gs[1])
             else:
@@ -212,10 +212,10 @@ class Timeline():
                                   transform=self.tax.transAxes)
             if len(cevents) > 0:
                 for event in cevents:
-                    self.eax.scatter(event.time, 1, c=fc, marker='s', s=200,
+                    self.eax.scatter(event.time, 1.3, c=fc, marker='s', s=200,
                                      edgecolors='k')
-                    self.eax.text(event.time, 1.5, event.desc, verticalalignment='bottom',
-                                  horizontalalignment='left', rotation=30)
+                    self.eax.text(event.time, -0.5, event.desc, verticalalignment='top',
+                                  horizontalalignment='right', rotation=30)
         plt.show()
 
     def save(self, filename='timeline.pkl'):
