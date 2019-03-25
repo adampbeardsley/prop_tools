@@ -212,7 +212,7 @@ class Timeline():
                                   transform=self.tax.transAxes)
             if len(cevents) > 0:
                 for event in cevents:
-                    self.eax.scatter(event.time, 1.3, c=fc, marker='s', s=200,
+                    self.eax.scatter(event.time, 1.3, c=fc, marker='d', s=150,
                                      edgecolors='k')
                     self.eax.text(event.time, -0.5, event.desc, verticalalignment='top',
                                   horizontalalignment='right', rotation=30)
