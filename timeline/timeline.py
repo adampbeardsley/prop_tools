@@ -33,9 +33,10 @@ class Task():
 
 class Category():
     """ Category to group tasks """
-    def __init__(self, name, color=None):
+    def __init__(self, name, color=None, shape=None):
         self.name = name
         self.color = color
+        self.shape = shape
 
 
 class Timeline():
@@ -124,6 +125,7 @@ class Timeline():
             self.eax = plt.subplot(111)
         # Color cycles here instead of init to ensure we start at the start.
         cat_colors = cycle(['#f4ccccff', '#c9daf8ff', '#fff2ccff', '#d9ead3ff', '#d9d2e9ff'])
+        cat_shapes = cycle(['d', 's', 'o', 'v', '*'])
         year_colors = cycle(['#d9d9d9ff', '#f3f3f3ff'])
         quarter_colors = cycle(['#d9d9d9ff', '#f3f3f3ff'])
         if self.begin is None:
@@ -198,6 +200,9 @@ class Timeline():
                 fc = self.categories[category].color
                 if fc is None:
                     fc = cat_colors.next()
+                fs = self.categories[category].shape
+                if fs is None:
+                    fs = cat_shapes.next()
             if len(ctasks) > 0:
                 for task in ctasks:
                     xmin = float(task.begin.value - xi) / (xf - xi)
@@ -212,7 +217,7 @@ class Timeline():
                                   transform=self.tax.transAxes)
             if len(cevents) > 0:
                 for event in cevents:
-                    self.eax.scatter(event.time, 1.3, c=fc, marker='d', s=150,
+                    self.eax.scatter(event.time, 1.3, c=fc, marker=fs, s=150,
                                      edgecolors='k')
                     self.eax.text(event.time, -0.5, event.desc, verticalalignment='top',
                                   horizontalalignment='right', rotation=30)
